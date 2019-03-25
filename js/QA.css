@@ -1,0 +1,17 @@
+.dvQA {margin:3% 0 0 5%;width:90%}
+.dvQNo {font-size:1.3em;color: brown;}
+.dvQues {font-size:1.3em;background-color: #FFFFD2; padding:20px;margin-bottom: 20px;}
+.dvAns {font-size:1.2em;}
+.ansItem, .dvAnsBtn, .QAItem{ padding-left: 15px; cursor: pointer;}
+.ansItem:hover {background-color: #B0D8FF;}
+.ansToSelect {background-color:greenyellow;}
+.ansSelect {background-color:lightgreen;}
+.ansCorrect {background-color:lightpink;}
+.ansCont {position:relative;left:45px;top:-1.15em;display:block;width:90%}
+.dvAnsBtn {position:relative;}
+.dvAnsBtn input{padding:15px 30px; margin-right:20px; width:100px;}
+.dvQASel{float:right;}
+.dvRetArea {padding:20px 0 0 15px; }
+#AnsWatch {width:50%;}
+#dvAnsSol {color:green;display:inline; padding-left: 15px;}
+#dvAnsRet {color:royalblue;display:inline;}
