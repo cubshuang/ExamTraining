@@ -20,6 +20,10 @@ var nowQues={
         });
         this.myPreAns=nowQues.myAns;
         this.cleanQA();
+    },
+    errGetQA:function(){
+        dvSol.innerHTML="";
+        dvRet.innerHTML="取得題目有誤";
     }
 }
 var QA={
@@ -108,7 +112,6 @@ var QA={
     },
     fnWatchAns:function(){
         let thisAns=exam[nowQues.QNo].answer.split(',');
-        console.log(nowQues.myAns);
         thisAns.forEach(id=>{ document.querySelector("#ansItem_"+id).classList.remove("ansCorrect"); });
         if (nowQues.myAns.length>0){
             dvSol.innerHTML="正確答案："+thisAns;
@@ -120,14 +123,10 @@ var QA={
         }
     },
     fnQNext:function(){
-       (nowQues.QNo<arrQues.length-1)?this.getQuestion(arrQues[nowQues.QNo+1]):this.errGetQA();
+       (nowQues.QNo<arrQues.length-1)?QA.getQuestion(arrQues[nowQues.QNo+1]):nowQues.errGetQA();
     },
     fnQPrevios:function(){
-        (nowQues.QNo>0)?this.getQuestion(arrQues[nowQues.QNo-1]):this.errGetQA();
-    },
-    errGetQA:function(){
-        dvSol.innerHTML="";
-        dvRet.innerHTML="取得題目有誤";
+        (nowQues.QNo>0)?QA.getQuestion(arrQues[nowQues.QNo-1]):nowQues.errGetQA();
     },
     ini:function(){
         yourAns=new Array();
@@ -136,6 +135,7 @@ var QA={
             arrQues[i]=exam[i].id;
         }
         yourAns.length=exam.length;
+        //this.getQuestion(arrQues[arrQues.length-1]);
         this.getQuestion(arrQues[0]);
         document.querySelector("#AnsWatch").addEventListener("click",this.fnWatchAns);
         document.querySelector("#QNext").addEventListener("click",this.fnQNext);
