@@ -9,7 +9,6 @@
 .ansCorrect {background-color:lightpink;}
 .ansCont {position:relative;left:45px;top:-1.15em;display:block;width:90%}
 .dvAnsBtn {position:relative;margin-top:20px;}
-.dvAnsBtn input{padding:15px 30px; margin-right:20px; width:100px;}
 .dvAnsBtn .btn{color:red;padding:10px 30px; width: 100px; border:blue 1px inset; display:inline; background-color:lightskyblue;}
 .dvAnsBtn .btn:hover{ background-color:lightyellow;}
 .dvQASel{float:right;}
