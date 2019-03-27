@@ -128,11 +128,19 @@ var QA={
     fnQPrevios:function(){
         (nowQues.QNo>0)?QA.getQuestion(arrQues[nowQues.QNo-1]):nowQues.errGetQA();
     },
+    selectQANo:function(){
+        QA.getQuestion(document.querySelector("#qaNo").value*1.0);
+    },
     ini:function(){
         yourAns=new Array();
         arrQues=new Array();
+        let qaSelect=document.querySelector("#qaNo");
         for(let i=0;i<exam.length;i++){
             arrQues[i]=exam[i].id;
+            let op=document.createElement("option");
+            op.value=arrQues[i];
+            op.text="第 " + (i+1).toString() + " 題";
+            qaSelect.appendChild(op);
         }
         yourAns.length=exam.length;
         //this.getQuestion(arrQues[arrQues.length-1]);
@@ -140,7 +148,9 @@ var QA={
         document.querySelector("#AnsWatch").addEventListener("click",this.fnWatchAns);
         document.querySelector("#QNext").addEventListener("click",this.fnQNext);
         document.querySelector("#QPrevious").addEventListener("click",this.fnQPrevios);
+        document.querySelector("#qaNo").addEventListener("change",this.selectQANo);
     }
+    
 }
 QA.ini();
 window.addEventListener('keydown', function(e){
