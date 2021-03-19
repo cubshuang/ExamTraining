@@ -24,4 +24,4 @@ script1.src = path + 'Exam-'+ y +'-'+ p +'.js';
 script2.src = path + 'QA.js'; 
 //head.appendChild(script1).appendChild(script2);
 head.appendChild(script1);
-window.setTimeout( function() { head.appendChild(script2);} , 3000);
+window.setTimeout( function() { head.appendChild(script2);} , 2000);
