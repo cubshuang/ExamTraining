@@ -1,0 +1,21 @@
+.dvQA {margin:2rem;position:relative;}
+.dvQName{font-size:1.5em;color: #0066ff;display:inline;}
+.dvQNo {font-size:1.3em;color: brown;display:inline;}
+.dvQNo p{display:inline;}
+.dvQues {font-size:1.3em;background-color: #FFFFD2; padding:1.75rem;margin-bottom: 20px;}
+.dvAns {font-size:1.2em;}
+.ansItem, .dvAnsBtn, .QAItem{ padding-left: 15px; cursor: pointer;}
+.ansItem:hover {background-color: #B0D8FF;}
+.ansToSelect {background-color:greenyellow;}
+.ansSelect {background-color:lightgreen;}
+.ansCorrect {background-color:lightpink;}
+.ansCont {position:relative;left:45px;top:-1.275em;display:block;}
+.dvAnsBtn {position:relative;margin-top:20px;}
+.dvAnsBtn .btn{color:red;padding:10px 30px; width: 100px; border:blue 1px inset; display:inline; background-color:lightskyblue;}
+.dvAnsBtn .btn:hover{ background-color:lightyellow;}
+.dvQASel{float:right;}
+.dvRetArea {padding:20px 0 0 15px; }
+#dvAnsSol {color:green;display:inline; padding-left: 15px;}
+#dvAnsRet {color:royalblue;display:inline;}
+.qaNo {position:absolute; right:0;top:0; }
+.qaNo select {height:1.75rem;}
