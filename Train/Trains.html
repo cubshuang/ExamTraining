@@ -18,8 +18,8 @@
         <div id="showbox"></div>
         <div id="demo"></div>
         <!-- <div id="FS" style="display:none;"></div> -->
-        <div id="FS" style="display:none;"></div>
-        <div id="PT" style="display:none;"></div>
+        <!-- <div id="FS" style="display:none;"></div> -->
+        <!-- <div id="PT" style="display:none;"></div> -->
     </body>
     <script type="text/javascript" charset="utf-8">
         window.onload =  ShowTime();
@@ -29,23 +29,48 @@
             var m=NowDate.getMinutes();
             var s=NowDate.getSeconds();
                 document.getElementById('showbox').innerHTML = h+'時'+m+'分'+s+'秒';
+				if (s==0){
+					
+				}
 				//vsTime('05:00');
-                setTimeout('ShowTime()',1000);
+                setTimeout('ShowTime()',1*1000);
         }
 		function vsTime(tick){
 		    var d=new Date(); 
 		    var tickTime =  d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + ' ' + tick + ':00';
 			var t=(Date.parse(tickTime)).valueOf();
 			var diff=(t-d)/ (1000 * 60 );
+			console.log(tick + " =>" + diff);
 			return parseInt(diff);
 		}
-		
-    console.log(vsTime('16:00'));
-
-    console.log("GoN");
-	console.log(GoN);
-    console.log("GoS");
-    console.log(GoS);
+		function checkTrain(){
+			var demo=document.getElementById("demo");
+			demo.innerHTML="";
+			var trainName,sTime,eTime,aTime;
+			for	(var i =0;i<GoN.length;i++){
+				trainName = GoN[i][0];
+				sTime=GoN[i][3];
+				eTime=GoN[i][1];
+				aTime=GoN[i][2];
+				if (vsTime(sTime)<=0 && vsTime(eTime)>=0){
+				   demo.innerHTML+=trainName + " " + sTime + " => " + eTime + " " + aTime+ "<br>";
+				}
+			}	
+			for	(var i =0;i<GoS.length;i++){
+				trainName = GoS[i][0];
+				sTime=GoS[i][1];
+				eTime=GoS[i][3];
+				aTime=GoS[i][2];
+				if (vsTime(sTime)<=0 && vsTime(eTime)>=0){
+				   demo.innerHTML+=trainName + " " + sTime + " => " + eTime + " " + aTime+ "<br>";
+				}
+			}
+		}		
+	checkTrain();
+    //console.log("GoN");
+	//console.log(GoN);
+    //console.log("GoS");
+    //console.log(GoS);
     </script>
 </html>
 
