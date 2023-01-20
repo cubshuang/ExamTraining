@@ -40,7 +40,6 @@
 		    var tickTime =  d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + ' ' + tick + ':00';
 			var t=(Date.parse(tickTime)).valueOf();
 			var diff=(t-d)/ (1000 * 60 );
-			console.log(tick + " =>" + diff);
 			return parseInt(diff);
 		}
 		function checkTrain(){
