@@ -1,0 +1,100 @@
+html,body{
+  /* background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff3b99), color-stop(100%, #7f1d4d)); */
+  background-image: -webkit-linear-gradient(lightskyblue, lightblue);
+  background-image: -moz-linear-gradient(lightskyblue, lightblue);
+  background-image: -o-linear-gradient(lightskyblue, lightblue);
+  background-image: linear-gradient(lightskyblue, lightblue);
+  background-repeat: repeat;
+  height: 100%;
+}
+.station, .stationName { text-align: center; }
+.stationName { font-size: 1.5rem; color:blue;}
+/* .TraLogo {background-image:url('../img/TRA_Logo.png');} */
+.passN1,.passN3,.passS1,.passS3 { animation-duration: 3s; }
+.passN2,.passS2 { animation-duration: 6s; }
+.passN1 { animation-name: passN1; left: 75.33%;}
+.passN2 { animation-name: passN2; left: 16.33%; scale:1;}
+.passN3 { animation-name: passN3; left: 0%;}
+.passS1 { animation-name: passS1; left: 16.33%;}
+.passS2 { animation-name: passS2; left: 75.33%; scale:1;}
+.passS3 { animation-name: passS3; left: 91.66%;}
+.stayN0,.stayS3 { left: 91.66%;}
+.stayN1,.stayS2 { left: 75.33%;}
+.stayN2,.stayS1 { left: 16.33%;}
+.stayN3,.stayS0 { left: 0%;}
+
+@keyframes passN1 { from { left:  91.66%; } to { left: 75.33%; } }
+@keyframes passN2 { from { left:  75.33%; scale: 2; bottom: 20px;} to { left: 16.33%; scale: 2;bottom: 20px} }
+@keyframes passN3 { from { left:  16.33%; } to { left: 0%; } }
+@keyframes passS1 { from { left:  0%; } to { left: 16.33%; } }
+@keyframes passS2 { from { left:  16.33%; scale: 2;bottom: 20px} to { left: 75.33%; scale: 2;bottom: 20px} }
+@keyframes passS3 { from { left:  75.33%; } to { left: 91.66%; } }
+
+
+
+.pass {
+  animation-duration: 10s;
+  animation-name: slidein;
+}
+@keyframes slidein {
+  from { margin-left: 100%; }
+  to { margin-left: 0%; }
+}
+.trains,.trains > div,.ST_L,.ST_M,.ST_R {
+  position: relative;
+}
+/* .trains > .Go2N {
+  position: relative;
+  left:91.7%;
+}
+.trains > .Go2S {
+  position: relative;
+  left:0;
+} */
+.stDiv{position:relative;}
+.stNorth,.stSouth{ position: absolute; color: rgb(240, 67, 36); }
+.stNorth{ left:0; }
+.stSouth{ right:0;}
+.ST_L{ left:10.33%; }
+.ST_M{ left:45.66%; }
+.ST_R{ left:80.99%; }
+.Go2N {
+  -moz-transform:scaleX(1);
+  -webkit-transform:scaleX(1);
+  -o-transform:scaleX(1);
+  transform:scaleX(1);
+}
+.Go2S {
+  -moz-transform:scaleX(-1);
+  -webkit-transform:scaleX(-1);
+  -o-transform:scaleX(-1);
+  transform:scaleX(-1);
+}
+._E200{ background-image: url("../img/E200.png");}
+._E1000{ background-image: url("../img/E1000.png");}
+._EMU700{ background-image: url("../img/EMU700.png");}
+._EMU800{ background-image: url("../img/EMU800.png");}
+._TEMU1000{ background-image: url("../img/TEMU1000.png");}
+._TEMU2000{ background-image: url("../img/TEMU2000.png");}
+.Train{
+  width: 8.333%;
+  height: 60px;
+  /* background-color: rgba(0, 0, 0, 0); */
+  background-size: 100% 100%;
+}
+  /* .Train_xx{
+    border: 1px solid red;
+     position: absolute; 
+margin: 0px;
+opacity: 0; 
+inset: 0px auto auto 0px;
+width: 156px;
+height: 42px;
+background-image: url("img/E200.png");
+background-color: rgba(0, 0, 0, 0);
+background-size: 100% 100%;
+--webkit-transform-style: preserve-3d;
+transform: translate(0px, 190px) translateZ(0px) rotate(0deg) scale(1, 1); 
+background-position: 0px 0px;
+background-repeat: no-repeat no-repeat;
+  } */
