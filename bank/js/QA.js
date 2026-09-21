@@ -181,7 +181,7 @@ var QA={
                 let s=fName[i].split("-");
                 let op=document.createElement("option");
                 op.value=fName[i];
-                op.text=s[0] + " 年 【" + (s[1]=="2"?"金融市場常識":"職業道德") + "】";
+                op.text=s[0] + " 年 【" + (s[1]=="1"?"金融市場常識":"職業道德") + "】";
                 qaSelect.appendChild(op);
             }
             qaSelect.addEventListener("change",this.selectQAYP);
