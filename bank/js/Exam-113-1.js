@@ -1,3 +1,4 @@
+var examName="金融市場常識 113";
 var exam=[
   {
     "id": 1,

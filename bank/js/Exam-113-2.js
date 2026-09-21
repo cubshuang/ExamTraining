@@ -1,3 +1,4 @@
+var examName="職業道德 113";
 var exam=[
   {
     "id": 1,
