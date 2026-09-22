@@ -1,28 +1,74 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="js/QA.css">
-        <script src="js/Exam.js"></script>
-    </head>
-    <body>
-        <div class="dvQA">
-            <select id="qaNo"></select>
-            <div class="dvQNo"></div>
-            <div class="dvQues"></div>
-            <div class="dvAns"></div>
-            <div class="dvAnsBtn dvAns">
-                <div class="btn" id="AnsWatch">看答案</div>
-                <div class="dvQASel">
-                    <div class="btn" id="QPrevious">上一題</div>
-                    <div class="btn" id="QNext">下一題</div>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金融從業人員考題測驗</title>
+    <link rel="stylesheet" type="text/css" href="css/QA.css">
+</head>
+<body>
+    <div class="app-container dvQA">
+        <!-- 頂部導航列：考卷名稱與選單 -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="dvQName">自我測驗系統</div>
+            </div>
+            <div class="header-right qaNo">
+                <div class="select-wrapper">
+                    <label for="qaYP" class="select-label">試卷：</label>
+                    <select id="qaYP" title="選擇考卷"></select>
+                </div>
+                <div class="select-wrapper">
+                    <label for="qaNo" class="select-label">題號：</label>
+                    <select id="qaNo" title="選擇題號"></select>
                 </div>
             </div>
+        </header>
+
+        <!-- 測驗內容卡片 -->
+        <main class="quiz-card">
+            <!-- 題目資訊頭部 -->
+            <div class="question-header">
+                <div class="dvQNo"></div>
+            </div>
+
+            <!-- 題目內文 -->
+            <div class="dvQues"></div>
+
+            <!-- 選項區 -->
+            <div class="dvAns dvAnsOptions"></div>
+
+            <!-- 控制按鈕區 -->
+            <div class="dvAnsBtn">
+                <button type="button" class="btn btn-primary" id="AnsWatch">看答案 (Enter)</button>
+                <div class="dvQASel">
+                    <button type="button" class="btn btn-secondary" id="QPrevious">← 上一題</button>
+                    <button type="button" class="btn btn-secondary" id="QNext">下一題 →</button>
+                </div>
+            </div>
+
+            <!-- 作答結果與詳解區 -->
             <div class="dvRetArea">
                 <div id="dvAnsRet"></div>
                 <div id="dvAnsSol"></div>
             </div>
-        </div>
-    </body>
-    <script src="js/QA.js"></script>
+        </main>
+
+        <!-- 快速鍵指南 -->
+        <footer class="app-footer">
+            <div class="shortcuts-guide">
+                <span class="sc-item"><kbd>←</kbd> 上一題</span>
+                <span class="sc-item"><kbd>→</kbd> 下一題</span>
+                <span class="sc-item"><kbd>Enter</kbd> 看答案</span>
+                <span class="sc-item"><kbd>↑</kbd> <kbd>↓</kbd> 移動選項</span>
+                <span class="sc-item"><kbd>Space</kbd> / <kbd>Alt</kbd> 勾選</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 考卷參數設定檔 (可自由新增、修改考卷名稱、ID及檔名) -->
+    <script src="js/config.js"></script>
+    <!-- 工具函式與動態題庫載入器 -->
+    <script src="js/Tool.js"></script>
+</body>
 </html>
