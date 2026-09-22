@@ -8,12 +8,18 @@
 </head>
 <body>
     <div class="app-container dvQA">
-        <!-- 頂部導航列：考卷名稱與選單 -->
+        <!-- 頂部導航列：考卷名稱、模式切換與選單 -->
         <header class="app-header">
             <div class="header-left">
                 <div class="dvQName">自我測驗系統</div>
+                <!-- 測驗模式切換按鈕 -->
+                <div class="mode-switch">
+                    <button type="button" class="mode-btn active" id="btnModePractice">📘 循序練習</button>
+                    <button type="button" class="mode-btn" id="btnModeMock">🎯 模擬測驗</button>
+                </div>
             </div>
-            <div class="header-right qaNo">
+            <!-- 循序練習專用下拉選單 -->
+            <div class="header-right qaNo" id="headerPracticeControls">
                 <div class="select-wrapper">
                     <label for="qaYP" class="select-label">試卷：</label>
                     <select id="qaYP" title="選擇考卷"></select>
@@ -23,10 +29,19 @@
                     <select id="qaNo" title="選擇題號"></select>
                 </div>
             </div>
+            <!-- 模擬測驗專用頂部控制 (計時器、快速跳題、設定) -->
+            <div class="header-right qaNo" id="headerMockControls" style="display: none;">
+                <div class="mock-timer-box"><span class="timer-icon">⏱️</span><span id="mockTimer">00:00</span></div>
+                <div class="select-wrapper">
+                    <label for="mockQaNo" class="select-label">題號：</label>
+                    <select id="mockQaNo" title="選擇題號"></select>
+                </div>
+                <button type="button" class="btn btn-outline" id="btnMockSettingsToggle">⚙️ 設定</button>
+            </div>
         </header>
 
-        <!-- 測驗內容卡片 -->
-        <main class="quiz-card">
+        <!-- 模式一：循序練習卡片 -->
+        <main class="quiz-card" id="practiceQuizCard">
             <!-- 題目資訊頭部 -->
             <div class="question-header">
                 <div class="dvQNo"></div>
@@ -53,6 +68,16 @@
                 <div id="dvAnsSol"></div>
             </div>
         </main>
+
+        <!-- 模式二：模擬測驗容器 (包含設定卡片、作答卡片、成績報告卡片) -->
+        <div id="mockContainer" style="display: none;">
+            <!-- 1. 模擬測驗設定卡片 -->
+            <div id="mockSettingsPanel" class="quiz-card mock-card"></div>
+            <!-- 2. 模擬測驗作答卡片 -->
+            <div id="mockQuizPanel" class="quiz-card mock-card" style="display: none;"></div>
+            <!-- 3. 模擬測驗成績報告卡片 -->
+            <div id="mockResultPanel" class="quiz-card mock-card" style="display: none;"></div>
+        </div>
 
         <!-- 快速鍵指南 -->
         <footer class="app-footer">

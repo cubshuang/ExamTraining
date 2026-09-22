@@ -105,6 +105,82 @@ function getCurrentExamConfig() {
     return list[0];
 }
 
+// 題庫資料快取 (避免重複載入與變數污染)
+window.bankCache = window.bankCache || {};
+
+/**
+ * 動態載入單一題庫資料檔並快取隔離
+ * @param {Object} examItem 考卷設定 {id, name, file}
+ * @param {Function} callback (err, bankData) 回呼函式
+ */
+function loadExamBank(examItem, callback) {
+    if (!examItem || !examItem.id) {
+        if (typeof callback === "function") callback(new Error("未提供考卷設定"));
+        return;
+    }
+    if (window.bankCache[examItem.id]) {
+        if (typeof callback === "function") callback(null, window.bankCache[examItem.id]);
+        return;
+    }
+    // 清空暫存全域變數，避免讀取到上一份考卷
+    window.exam = undefined;
+    window.examName = undefined;
+
+    loadScript(examItem.file, function() {
+        if (window.exam) {
+            var bankData = {
+                id: examItem.id,
+                name: window.examName || examItem.name,
+                file: examItem.file,
+                questions: window.exam.slice()
+            };
+            window.bankCache[examItem.id] = bankData;
+            if (typeof callback === "function") callback(null, bankData);
+        } else {
+            var err = new Error("題庫載入完成但未取得題目陣列: " + examItem.name);
+            console.error(err);
+            if (typeof callback === "function") callback(err);
+        }
+    }, function(src, err) {
+        if (typeof callback === "function") callback(err || new Error("載入腳本失敗: " + src));
+    });
+}
+
+/**
+ * 批次循序載入多個題庫資料檔（防範全域變數同名覆蓋衝突）
+ * @param {Array} examItems 考卷設定陣列
+ * @param {Function} onProgress (current, total, item)
+ * @param {Function} onComplete (err, resultsMap)
+ */
+function loadMultipleExamBanks(examItems, onProgress, onComplete) {
+    var results = {};
+    if (!examItems || examItems.length === 0) {
+        if (typeof onComplete === "function") onComplete(null, results);
+        return;
+    }
+    var index = 0;
+    function next() {
+        if (index >= examItems.length) {
+            if (typeof onComplete === "function") onComplete(null, results);
+            return;
+        }
+        var item = examItems[index];
+        if (typeof onProgress === "function") {
+            onProgress(index + 1, examItems.length, item);
+        }
+        loadExamBank(item, function(err, bankData) {
+            if (!err && bankData) {
+                results[item.id] = bankData;
+            } else {
+                console.warn("載入題庫警告: ", item.name, err);
+            }
+            index++;
+            next();
+        });
+    }
+    next();
+}
+
 // 執行題庫與核心腳本載入流程
 (function initApp() {
     var currentExam = getCurrentExamConfig();
@@ -112,15 +188,29 @@ function getCurrentExamConfig() {
 
     if (currentExam && currentExam.file) {
         // 1. 動態載入指定的考卷題庫
-        loadScript(currentExam.file, function() {
-            // 2. 題庫載入成功後立即載入主程式 QA.js（完全消除原本 2000ms 的空白等待）
-            loadScript("js/QA.js", null, function(src) {
+        loadExamBank(currentExam, function(err, bankData) {
+            if (err) {
+                var ret = document.querySelector("#dvAnsRet");
+                if (ret) ret.innerText = "無法載入題庫資料檔案: " + err.message;
+                return;
+            }
+            // 保持 window.exam 與 window.examName 指向當前考卷
+            window.exam = bankData.questions;
+            window.examName = bankData.name;
+
+            // 2. 題庫載入成功後依序載入 QA.js 與 MockExam.js
+            loadScript("js/QA.js", function() {
+                loadScript("js/MockExam.js", function() {
+                    if (window.MockExam && typeof window.MockExam.init === "function") {
+                        window.MockExam.init();
+                    }
+                }, function(src) {
+                    console.warn("未載入 MockExam.js 或載入失敗: " + src);
+                });
+            }, function(src) {
                 var ret = document.querySelector("#dvAnsRet");
                 if (ret) ret.innerText = "無法載入測驗互動核心 (QA.js)";
             });
-        }, function(failedSrc) {
-            var ret = document.querySelector("#dvAnsRet");
-            if (ret) ret.innerText = "無法載入題庫資料檔案: " + failedSrc;
         });
     } else {
         console.error("未找到任何考卷設定，請檢查 js/config.js");

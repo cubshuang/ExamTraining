@@ -23,8 +23,25 @@ var examSettings = {
             name: "113 年【職業道德】",
             file: "data/Exam-113-2.js"
         }
-    ]
+    ],
+    // 模擬試題測驗預設參數設定
+    mockExam: {
+        totalQuestions: 50, // 每次測驗預設總出題數
+        // 題庫來源與各題庫抽取題數 (支援多題庫配置)
+        banks: [
+            {
+                examId: "113-1", // 對應上方 exams 的 id
+                count: 25        // 該題庫抽取題數
+            },
+            {
+                examId: "113-2",
+                count: 25
+            }
+        ]
+    }
 };
 
 // 相容以 examConfig 直接存取考卷陣列
 var examConfig = examSettings.exams;
+// 模擬試題預設設定
+var mockExamSettings = examSettings.mockExam;
