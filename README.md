@@ -71,6 +71,7 @@ var examConfig = examSettings.exams;
 
 🔗 **GitHub Pages 線上體驗**：[https://cubshuang.github.io/ExamTraining/](https://cubshuang.github.io/ExamTraining/)
 
+---
 ## 操作說明與快速鍵
 
 ### 滑鼠操作
