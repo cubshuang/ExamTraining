@@ -67,6 +67,9 @@ var examConfig = examSettings.exams;
 3. 存檔後重新整理瀏覽器即可在右上角選單看到新考卷，**完全不需要修改任何主程式碼**！
 
 ---
+## 🌐 線上展示 (Online Demo)
+
+🔗 **GitHub Pages 線上體驗**：[https://cubshuang.github.io/ExamTraining/](https://cubshuang.github.io/ExamTraining/)
 
 ## 操作說明與快速鍵
 
