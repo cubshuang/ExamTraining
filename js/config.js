@@ -38,6 +38,11 @@ var examSettings = {
                 count: 25
             }
         ]
+    },
+    // UI 介面多樣式預設設定 (主題風格與字體大小)
+    uiTheme: {
+        defaultTheme: "blue",       // "blue" (科技藍) | "dark" (暗黑護眼) | "green" (清新薄荷) | "sepia" (暖陽米紙) | "purple" (雅緻紫羅)
+        defaultFontSize: "normal"   // "normal" (標準 100%) | "medium" (舒適 112%) | "large" (大字 125%)
     }
 };
 
@@ -45,3 +50,5 @@ var examSettings = {
 var examConfig = examSettings.exams;
 // 模擬試題預設設定
 var mockExamSettings = examSettings.mockExam;
+// UI 主題樣式預設設定
+var uiThemeSettings = examSettings.uiTheme;

@@ -183,6 +183,17 @@ function loadMultipleExamBanks(examItems, onProgress, onComplete) {
 
 // 執行題庫與核心腳本載入流程
 (function initApp() {
+    // 載入並初始化外觀主題管理器
+    if (typeof ThemeManager !== "undefined" && typeof ThemeManager.init === "function") {
+        ThemeManager.init();
+    } else {
+        loadScript("js/ThemeManager.js", function() {
+            if (window.ThemeManager && typeof window.ThemeManager.init === "function") {
+                window.ThemeManager.init();
+            }
+        });
+    }
+
     var currentExam = getCurrentExamConfig();
     window.currentExam = currentExam;
 
