@@ -13,16 +13,22 @@ var examSettings = {
     selector: "#qaYP",
     defaultExamId: "113-1",
     exams: [
-        {
-            id: "113-1",
-            name: "113 年【金融市場常識】",
-            file: "data/Exam-113-1.js"
-        },
-        {
-            id: "113-2",
-            name: "113 年【職業道德】",
-            file: "data/Exam-113-2.js"
-        }
+        { id: "113-1", name: "113 年【金融市場常識】", file: "data/Exam-113-1.js" },
+        { id: "113-2", name: "113 年【職業道德】", file: "data/Exam-113-2.js" },
+        { id: "I-43-1", name: "【內控法規】43期", file: "data/Exam-內控法規-43期.js" },
+        { id: "I-44-1", name: "【內控法規】44期", file: "data/Exam-內控法規-44期.js" },
+        { id: "I-45-1", name: "【內控法規】45期", file: "data/Exam-內控法規-45期.js" },
+        { id: "I-46-1", name: "【內控法規】46期", file: "data/Exam-內控法規-46期.js" },
+        { id: "I-47-1", name: "【內控法規】47期", file: "data/Exam-內控法規-47期.js" },
+        { id: "I-48-1", name: "【內控法規】48期", file: "data/Exam-內控法規-48期.js" },
+        { id: "I-49-1", name: "【內控法規】49期", file: "data/Exam-內控法規-49期.js" },
+		{ id: "I-43-2", name: "【內控實務】43期", file: "data/Exam-內控實務-43期.js" },
+        { id: "I-44-2", name: "【內控實務】44期", file: "data/Exam-內控實務-44期.js" },
+        { id: "I-45-2", name: "【內控實務】45期", file: "data/Exam-內控實務-45期.js" },
+        { id: "I-46-2", name: "【內控實務】46期", file: "data/Exam-內控實務-46期.js" },
+        { id: "I-47-2", name: "【內控實務】47期", file: "data/Exam-內控實務-47期.js" },
+        { id: "I-48-2", name: "【內控實務】48期", file: "data/Exam-內控實務-48期.js" },
+        { id: "I-49-2", name: "【內控實務】49期", file: "data/Exam-內控實務-49期.js" },		
     ],
     // 模擬試題測驗預設參數設定
     mockExam: {
