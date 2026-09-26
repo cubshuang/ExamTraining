@@ -194,6 +194,17 @@ function loadMultipleExamBanks(examItems, onProgress, onComplete) {
         });
     }
 
+    // 載入並初始化測驗歷程管理器
+    if (typeof HistoryManager !== "undefined" && typeof HistoryManager.init === "function") {
+        HistoryManager.init();
+    } else {
+        loadScript("js/HistoryManager.js", function() {
+            if (window.HistoryManager && typeof window.HistoryManager.init === "function") {
+                window.HistoryManager.init();
+            }
+        });
+    }
+
     var currentExam = getCurrentExamConfig();
     window.currentExam = currentExam;
 

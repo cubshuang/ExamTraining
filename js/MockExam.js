@@ -826,6 +826,15 @@ var MockExam = (function() {
             details: questionDetails
         };
 
+        // 自動儲存模擬測驗紀錄至 localStorage
+        if (window.HistoryManager && typeof window.HistoryManager.recordMockExam === 'function') {
+            try {
+                window.HistoryManager.recordMockExam(state.result);
+            } catch (err) {
+                console.error("儲存測驗紀錄至 localStorage 失敗:", err);
+            }
+        }
+
         renderResultPanel();
         showMockPanel("result");
     }
@@ -900,9 +909,13 @@ var MockExam = (function() {
 
         html += '  </div>'
             + '</div>'
+            + '<div style="text-align: center; margin-bottom: 12px;">'
+            + '  <div class="record-auto-saved-badge">💾 本次測驗已自動記錄至本機 localStorage</div>'
+            + '</div>'
             + '<div class="result-actions">'
             + '  <button type="button" class="btn btn-primary" id="btnRetakeMock">🔄 再測驗一次 (相同設定重新抽題)</button>'
             + '  <button type="button" class="btn btn-secondary" id="btnAdjustMockSettings">⚙️ 調整測驗設定</button>'
+            + '  <button type="button" class="btn btn-secondary" id="btnViewHistoryInResult">📊 查看歷次成績紀錄</button>'
             + '  <button type="button" class="btn btn-outline" id="btnBackToPractice">📘 返回循序練習</button>'
             + '</div>'
             + '<div class="review-section">'
@@ -926,6 +939,7 @@ var MockExam = (function() {
         // 綁定操作按鈕
         var btnRetake = panel.querySelector("#btnRetakeMock");
         var btnAdjust = panel.querySelector("#btnAdjustMockSettings");
+        var btnViewHistory = panel.querySelector("#btnViewHistoryInResult");
         var btnBackPractice = panel.querySelector("#btnBackToPractice");
 
         if (btnRetake) {
@@ -936,6 +950,13 @@ var MockExam = (function() {
         if (btnAdjust) {
             btnAdjust.addEventListener("click", function() {
                 showMockPanel("settings");
+            });
+        }
+        if (btnViewHistory) {
+            btnViewHistory.addEventListener("click", function() {
+                if (window.HistoryManager && typeof window.HistoryManager.openModal === "function") {
+                    window.HistoryManager.openModal("history");
+                }
             });
         }
         if (btnBackPractice) {

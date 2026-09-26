@@ -100,6 +100,12 @@ var QA = {
                 qaNoSelect.value = QId;
             }
 
+            // 保存循序練習進度至 localStorage
+            if (window.HistoryManager && typeof window.HistoryManager.savePracticeProgress === "function") {
+                var curExamId = window.currentExam ? window.currentExam.id : "";
+                window.HistoryManager.savePracticeProgress(curExamId, nowQues.QNo);
+            }
+
             // 選項渲染
             let ansArea = document.querySelector(".dvAns");
             ansArea.innerHTML = "";
@@ -254,6 +260,23 @@ var QA = {
                         if (wrongItem) wrongItem.classList.add("ansWrong");
                     }
                 });
+
+                // 自動記錄至錯題本 (localStorage)
+                if (window.HistoryManager && typeof window.HistoryManager.recordWrongQuestion === "function") {
+                    var curQ = exam[nowQues.QNo];
+                    var curExamId = window.currentExam ? window.currentExam.id : "";
+                    var curExamTitle = window.currentExam ? window.currentExam.name : examName;
+                    window.HistoryManager.recordWrongQuestion({
+                        bankId: curExamId,
+                        bankName: curExamTitle,
+                        qId: curQ.id || (nowQues.QNo + 1),
+                        question: curQ.question,
+                        ansItem: curQ.ansItem,
+                        answer: curQ.answer,
+                        answerMemo: curQ.answerMemo,
+                        userAnswer: nowQues.myAns
+                    });
+                }
             }
         } else {
             if (dvSol) {
@@ -316,7 +339,14 @@ var QA = {
                     qaNoSelect.appendChild(op);
                 }
                 yourAns.length = exam.length;
-                this.getQuestion(arrQues[0]);
+
+                // 檢查是否有儲存的循序練習進度 (localStorage)
+                var curExamId = window.currentExam ? window.currentExam.id : "";
+                var savedIdx = (window.HistoryManager && typeof window.HistoryManager.getPracticeProgress === "function")
+                    ? window.HistoryManager.getPracticeProgress(curExamId)
+                    : null;
+                var initialQNo = (savedIdx !== null && savedIdx >= 0 && savedIdx < arrQues.length) ? arrQues[savedIdx] : arrQues[0];
+                this.getQuestion(initialQNo);
 
                 document.querySelector("#AnsWatch").addEventListener("click", this.fnWatchAns);
                 document.querySelector("#QNext").addEventListener("click", this.fnQNext);
