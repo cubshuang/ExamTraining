@@ -15,6 +15,7 @@
                 <!-- 測驗模式切換按鈕 -->
                 <div class="mode-switch">
                     <button type="button" class="mode-btn active" id="btnModePractice">📘 循序練習</button>
+                    <button type="button" class="mode-btn" id="btnModeReview">📋 考題解答檢視</button>
                     <button type="button" class="mode-btn" id="btnModeMock">🎯 模擬測驗</button>
                 </div>
             </div>
@@ -27,6 +28,24 @@
                 <div class="select-wrapper">
                     <label for="qaNo" class="select-label">題號：</label>
                     <select id="qaNo" title="選擇題號"></select>
+                </div>
+            </div>
+            <!-- 考題解答檢視專用頂部控制 (試卷切換、關鍵字搜尋、每頁題數) -->
+            <div class="header-right qaNo" id="headerReviewControls" style="display: none;">
+                <div class="select-wrapper">
+                    <label for="reviewYP" class="select-label">試卷：</label>
+                    <select id="reviewYP" title="選擇考卷"></select>
+                </div>
+                <div class="search-wrapper review-search-box">
+                    <input type="text" id="reviewSearch" class="form-input" placeholder="🔍 搜尋題目或選項...">
+                </div>
+                <div class="select-wrapper">
+                    <label for="reviewPageSize" class="select-label">題數：</label>
+                    <select id="reviewPageSize" title="每頁顯示題數">
+                        <option value="50">50 題</option>
+                        <option value="100">100 題</option>
+                        <option value="all">全部</option>
+                    </select>
                 </div>
             </div>
             <!-- 模擬測驗專用頂部控制 (計時器、快速跳題、設定) -->
@@ -69,6 +88,9 @@
             </div>
         </main>
 
+        <!-- 模式三：考題解答檢視容器 (依據規格：第一列答案題號題目，第二列對齊選項列) -->
+        <div id="reviewContainer" class="quiz-card review-card" style="display: none;"></div>
+
         <!-- 模式二：模擬測驗容器 (包含設定卡片、作答卡片、成績報告卡片) -->
         <div id="mockContainer" style="display: none;">
             <!-- 1. 模擬測驗設定卡片 -->
@@ -97,6 +119,8 @@
     <script src="js/ThemeManager.js"></script>
     <!-- 測驗歷程、錯題本與成績統計 (localStorage 本機保存) -->
     <script src="js/HistoryManager.js"></script>
+    <!-- 考題解答檢視模組 (第一列答案題號題目，第二列對齊選項列) -->
+    <script src="js/ExamReview.js"></script>
     <!-- 工具函式與動態題庫載入器 -->
     <script src="js/Tool.js"></script>
 </body>

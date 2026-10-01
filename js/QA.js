@@ -243,7 +243,17 @@ var QA = {
                 if (exam[nowQues.QNo].answerMemo != null && exam[nowQues.QNo].answerMemo.trim() !== "") {
                     solHtml += "<div class='sol-memo'><span class='memo-tag'>詳解說明</span> " + exam[nowQues.QNo].answerMemo + "</div>";
                 }
+                solHtml += "<div class='sol-review-link' style='margin-top: 10px; font-size: 0.88rem;'><a href='javascript:void(0);' id='lnkGoToReview' style='color: var(--primary-color); text-decoration: none; font-weight: 600;'>📋 切換至「考題解答檢視」完整版</a></div>";
                 dvSol.innerHTML = solHtml;
+
+                let lnk = dvSol.querySelector("#lnkGoToReview");
+                if (lnk) {
+                    lnk.addEventListener("click", function() {
+                        if (typeof window.switchAppMode === "function") {
+                            window.switchAppMode("review");
+                        }
+                    });
+                }
             }
 
             // 正確答案加上綠色高亮

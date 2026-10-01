@@ -2476,3 +2476,435 @@ kbd {
         font-size: 0.78rem;
     }
 }
+
+/* ==========================================================================
+   考題解答檢視模組 (Exam Review Mode Styles)
+   第一列：答案 + 題號 + 題目
+   第二列：對齊到題號位置開始，依序將選項列在後面
+   ========================================================================== */
+
+.review-card {
+    padding: 24px;
+}
+
+.review-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 16px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.review-toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.review-exam-badge {
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.review-count-info {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background-color: var(--bg-subtle);
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.review-toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.review-toggle-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    user-select: none;
+}
+
+.review-toggle-label input {
+    cursor: pointer;
+}
+
+/* 考題卡片列表 */
+.review-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* 考題卡片 - 採用 CSS Grid 兩欄架構：
+   第一欄：答案標籤【D】
+   第二欄：題號題目、選項列、詳解說明 (全部垂直對齊題號，換行自動保持對齊) */
+.review-qa-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    transition: all 0.15s ease;
+    box-shadow: var(--shadow-sm);
+
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 8px;
+    align-items: start;
+}
+
+.review-qa-card:hover {
+    border-color: var(--primary-border, #93c5fd);
+    box-shadow: var(--shadow-md);
+}
+
+/* 第一欄：答案標籤 (如【D】) */
+.qar-badge-col {
+    grid-column: 1;
+    display: flex;
+    align-items: flex-start;
+    user-select: none;
+    padding-top: 1px;
+}
+
+.qar-ans-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--primary-color);
+    letter-spacing: -0.5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    white-space: nowrap;
+}
+
+/* 第二欄主體容器：垂直堆疊 題目行、答案選項列、詳解說明 */
+.qar-body-col {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+/* 題目列：題號 + 題目緊密相連無空格，最右側為錯題收藏按鈕 */
+.qar-question-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.qar-question-content {
+    flex: 1;
+    min-width: 0;
+    line-height: 1.55;
+    word-break: break-word;
+}
+
+.qar-qno {
+    font-weight: 700;
+    font-size: 1.02rem;
+    color: var(--text-heading);
+    padding-right: 0;
+    margin-right: 0;
+}
+
+.qar-question {
+    font-weight: 600;
+    font-size: 1.02rem;
+    color: var(--text-main);
+    line-height: 1.55;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.btn-fav-wrong {
+    font-size: 0.76rem;
+    border: 1px solid var(--border-color);
+    background: var(--bg-subtle);
+    color: var(--text-muted);
+    border-radius: 6px;
+    padding: 3px 8px;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-left: auto;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.btn-fav-wrong:hover {
+    color: #eab308;
+    border-color: #facc15;
+    background: var(--warning-bg);
+}
+
+.btn-fav-wrong.faved {
+    color: #ca8a04;
+    background: var(--warning-bg);
+    border-color: var(--warning-border);
+}
+
+/* 答案選項列 (位於第 2 欄，與題號完全垂直對齊，換行自動保持對齊) */
+.qar-options-flow {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 16px;
+    row-gap: 6px;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+.qar-opt-item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
+    padding: 2px 6px;
+    border-radius: 5px;
+    transition: background 0.15s ease;
+}
+
+.qar-opt-item .opt-label {
+    font-weight: 700;
+    color: var(--text-heading);
+}
+
+.qar-opt-item.qar-opt-target {
+    color: var(--success-color);
+    background-color: var(--success-bg);
+    border: 1px solid var(--success-border);
+    font-weight: 600;
+}
+
+.qar-opt-item.qar-opt-target .opt-label {
+    color: var(--success-color);
+}
+
+/* 詳解說明 (同樣位於第 2 欄，與題號完全垂直對齊) */
+.qar-memo-box {
+    background: var(--bg-subtle);
+    border-left: 3px solid var(--warning-border);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+/* 純文字排版預覽模式 */
+.review-plaintext-wrapper {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.plaintext-header {
+    background: var(--bg-subtle);
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.plaintext-body {
+    padding: 20px;
+    background: var(--bg-card);
+    overflow-x: auto;
+}
+
+/* 純文字題目塊：採用 Grid 結構保證答案【D】在左側，右側行首與換行皆對齊題號 */
+.pt-item-block {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 8px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.pt-item-block:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.pt-badge-col {
+    color: var(--primary-color);
+    font-weight: 700;
+    white-space: nowrap;
+    user-select: all;
+    grid-column: 1;
+}
+
+.pt-body-col {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.pt-line {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.pt-qline {
+    color: var(--text-heading);
+    font-weight: 600;
+}
+
+.pt-ansline {
+    color: var(--text-main);
+}
+
+.pt-memoline {
+    color: var(--text-muted);
+}
+
+/* 分頁列 */
+.review-pagination-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.page-indicator {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.page-jump-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.form-select-sm {
+    padding: 4px 8px;
+    font-size: 0.84rem;
+}
+
+/* 提示 Toast */
+.review-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background-color: var(--text-heading, #0f172a);
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    z-index: 99999;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s ease;
+}
+
+.review-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* 列印專用樣式 */
+@media print {
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+    .app-header, .app-footer, .review-toolbar, .review-pagination-bar, .btn-fav-wrong, .mode-switch {
+        display: none !important;
+    }
+    .app-container, .quiz-card, .review-card {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+    }
+    .review-qa-card {
+        border: none !important;
+        border-bottom: 1px solid #ddd !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+        padding: 10px 0 !important;
+    }
+    .qar-ans-badge {
+        color: #000000 !important;
+        font-weight: 700 !important;
+    }
+    .qar-opt-item.qar-opt-target {
+        font-weight: 700 !important;
+        background: none !important;
+        border-bottom: 1px solid #000 !important;
+        color: #000000 !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .review-qa-card {
+        padding: 12px 14px;
+        row-gap: 6px;
+    }
+    .review-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .review-toolbar-right {
+        justify-content: flex-start;
+    }
+    #headerReviewControls {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    .review-search-box {
+        width: 100%;
+    }
+    .review-search-box .form-input {
+        width: 100%;
+    }
+}

@@ -98,11 +98,17 @@ var MockExam = (function() {
      */
     function bindGlobalEvents() {
         var btnPractice = document.getElementById("btnModePractice");
+        var btnReview = document.getElementById("btnModeReview");
         var btnMock = document.getElementById("btnModeMock");
 
         if (btnPractice) {
             btnPractice.addEventListener("click", function() {
                 switchAppMode("practice");
+            });
+        }
+        if (btnReview) {
+            btnReview.addEventListener("click", function() {
+                switchAppMode("review");
             });
         }
         if (btnMock) {
@@ -113,23 +119,29 @@ var MockExam = (function() {
     }
 
     /**
-     * 切換應用程式模式 (循序練習 vs 模擬測驗)
+     * 切換應用程式模式 (循序練習 vs 考題解答檢視 vs 模擬測驗)
      */
     function switchAppMode(mode) {
         var practiceControls = document.getElementById("headerPracticeControls");
+        var reviewControls = document.getElementById("headerReviewControls");
         var mockControls = document.getElementById("headerMockControls");
-        var practiceCard = document.querySelector(".quiz-card");
+        var practiceCard = document.getElementById("practiceQuizCard");
+        var reviewContainer = document.getElementById("reviewContainer");
         var mockContainer = document.getElementById("mockContainer");
         var btnPractice = document.getElementById("btnModePractice");
+        var btnReview = document.getElementById("btnModeReview");
         var btnMock = document.getElementById("btnModeMock");
         var shortcutsGuide = document.querySelector(".shortcuts-guide");
 
         if (mode === "practice") {
             if (btnPractice) btnPractice.classList.add("active");
+            if (btnReview) btnReview.classList.remove("active");
             if (btnMock) btnMock.classList.remove("active");
             if (practiceControls) practiceControls.style.display = "flex";
+            if (reviewControls) reviewControls.style.display = "none";
             if (mockControls) mockControls.style.display = "none";
             if (practiceCard) practiceCard.style.display = "block";
+            if (reviewContainer) reviewContainer.style.display = "none";
             if (mockContainer) mockContainer.style.display = "none";
             if (shortcutsGuide) {
                 shortcutsGuide.innerHTML = '<span class="sc-item"><kbd>←</kbd> 上一題</span>'
@@ -145,11 +157,34 @@ var MockExam = (function() {
                 window.examName = window.bankCache[window.currentExam.id].name;
             }
             state.active = false;
+        } else if (mode === "review") {
+            if (btnPractice) btnPractice.classList.remove("active");
+            if (btnReview) btnReview.classList.add("active");
+            if (btnMock) btnMock.classList.remove("active");
+            if (practiceControls) practiceControls.style.display = "none";
+            if (reviewControls) reviewControls.style.display = "flex";
+            if (mockControls) mockControls.style.display = "none";
+            if (practiceCard) practiceCard.style.display = "none";
+            if (reviewContainer) reviewContainer.style.display = "block";
+            if (mockContainer) mockContainer.style.display = "none";
+            if (shortcutsGuide) {
+                shortcutsGuide.innerHTML = '<span class="sc-item"><kbd>Ctrl+F</kbd> 搜尋題目</span>'
+                    + '<span class="sc-item"><kbd>Ctrl+P</kbd> 列印題庫</span>'
+                    + '<span class="sc-item"><kbd>📋</kbd> 一鍵複製純文字題庫</span>';
+            }
+            state.active = false;
+
+            if (window.ExamReview && typeof window.ExamReview.onActivated === "function") {
+                window.ExamReview.onActivated();
+            }
         } else {
             if (btnPractice) btnPractice.classList.remove("active");
+            if (btnReview) btnReview.classList.remove("active");
             if (btnMock) btnMock.classList.add("active");
             if (practiceControls) practiceControls.style.display = "none";
+            if (reviewControls) reviewControls.style.display = "none";
             if (practiceCard) practiceCard.style.display = "none";
+            if (reviewContainer) reviewContainer.style.display = "none";
             if (mockContainer) mockContainer.style.display = "block";
             state.active = true;
 
@@ -171,6 +206,11 @@ var MockExam = (function() {
                 showMockPanel("settings");
             }
         }
+    }
+
+    // 暴露全域模式切換函式
+    if (typeof window !== "undefined") {
+        window.switchAppMode = switchAppMode;
     }
 
     /**
