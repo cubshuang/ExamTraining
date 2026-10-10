@@ -319,12 +319,29 @@ var ExamReview = (function() {
 
         if (!examItem) return;
 
+        var examName = examItem.name;
+
+        // 1. 更新卡片工具列試卷標題
         var titleEl = document.getElementById('reviewExamTitle');
-        if (titleEl) titleEl.innerText = examItem.name;
+        if (titleEl) titleEl.innerText = examName;
+
+        // 2. 更新頂部導航列主標題 (.dvQName)
+        var qNameEl = document.querySelector('.dvQName');
+        if (qNameEl) qNameEl.innerHTML = examName;
+
+        // 3. 更新全域變數與頁面標題
+        window.currentExam = examItem;
+        window.examName = examName;
+        document.title = examName + ' - 考題解答檢視';
 
         // 若快取已有，直接讀取
         if (window.bankCache && window.bankCache[examItem.id]) {
             state.questions = window.bankCache[examItem.id].questions || [];
+            var cachedName = window.bankCache[examItem.id].name || examItem.name;
+            if (titleEl) titleEl.innerText = cachedName;
+            if (qNameEl) qNameEl.innerHTML = cachedName;
+            window.examName = cachedName;
+            document.title = cachedName + ' - 考題解答檢視';
             filterAndRender();
             return;
         }
@@ -340,6 +357,11 @@ var ExamReview = (function() {
                     return;
                 }
                 state.questions = bankData.questions || [];
+                var finalName = bankData.name || examItem.name;
+                if (titleEl) titleEl.innerText = finalName;
+                if (qNameEl) qNameEl.innerHTML = finalName;
+                window.examName = finalName;
+                document.title = finalName + ' - 考題解答檢視';
                 filterAndRender();
             });
         }

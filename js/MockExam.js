@@ -156,6 +156,17 @@ var MockExam = (function() {
                 window.exam = window.bankCache[window.currentExam.id].questions;
                 window.examName = window.bankCache[window.currentExam.id].name;
             }
+            var qNameEl = document.querySelector(".dvQName");
+            if (qNameEl && window.examName) {
+                qNameEl.innerHTML = window.examName;
+            }
+            var qaYP = document.getElementById("qaYP");
+            if (qaYP && window.currentExam && qaYP.value !== window.currentExam.id) {
+                qaYP.value = window.currentExam.id;
+                if (window.QA && typeof window.QA.ini === "function") {
+                    window.QA.ini();
+                }
+            }
             state.active = false;
         } else if (mode === "review") {
             if (btnPractice) btnPractice.classList.remove("active");
