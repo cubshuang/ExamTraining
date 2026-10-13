@@ -71,7 +71,7 @@ function getCurrentExamConfig() {
         return null;
     }
 
-    // 支援參數：?exam=113-1 或 ?id=113-1，並相容舊版 ?y=113&p=1
+    // 支援參數：?exam=116-1 或 ?id=116-1，並相容舊版 ?y=116&p=1
     var examParam = request("exam") || request("id");
     if (!examParam) {
         var y = request("y");
