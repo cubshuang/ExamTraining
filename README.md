@@ -21,15 +21,17 @@ ExamTraining/
 │   ├── HistoryManager.js    # 測驗歷程、錯題本、學習統計與備份管理器 (localStorage)
 │   └── ExamReview.js        # 考題解答檢視模組 (答案題號題目+對齊選項列)
 └── data/
-    ├── Exam-113-1.js        # 113 年金融市場常識題庫 (616 題)
-    └── Exam-113-2.js        # 113 年職業道德題庫 (504 題)
+    ├── 116金融市場題庫.pdf  # 金融市場常識題庫來源 (558 題)
+    ├── 116職業道德題庫.pdf  # 職業道德題庫來源 (616 題)
+    ├── Exam-116-1.js        # 116 年金融市場常識題庫 (558 題)
+    └── Exam-116-2.js        # 116 年職業道德題庫 (616 題)
 ```
 
 ---
 
 ## 考卷與外觀參數設定 (`js/config.js`)
 
-系統所有考卷選單、模擬測驗預設配題及初次開啟時的 UI 主題樣式，全部集中由 [js/config.js](file:///d:/03.Project/Other/GitHub/ExamTraining/js/config.js) 統一管理：
+系統所有考卷選單、模擬測驗預設配題及初次開啟時的 UI 主題樣式，全部集中由 [js/config.js](./js/config.js) 統一管理：
 
 ```javascript
 var examSettings = {
@@ -37,19 +39,19 @@ var examSettings = {
     selector: "#qaYP",
 
     // 預設載入的考卷 ID (網址未帶參數時使用)
-    defaultExamId: "113-1",
+    defaultExamId: "116-1",
 
     // 考卷清單
     exams: [
         {
-            id: "113-1",                        // 下拉選單 value 與網址參數識別碼
-            name: "113 年【金融市場常識】",       // 下拉選單顯示文字
-            file: "data/Exam-113-1.js"          // 對應之題庫檔案路徑
+            id: "116-1",                        // 下拉選單 value 與網址參數識別碼
+            name: "116 年【金融市場常識】",       // 下拉選單顯示文字
+            file: "data/Exam-116-1.js"          // 對應之題庫檔案路徑
         },
         {
-            id: "113-2",
-            name: "113 年【職業道德】",
-            file: "data/Exam-113-2.js"
+            id: "116-2",
+            name: "116 年【職業道德】",
+            file: "data/Exam-116-2.js"
         }
     ],
 
@@ -59,11 +61,11 @@ var examSettings = {
         // 題庫來源與各題庫抽取題數 (支援多題庫配置)
         banks: [
             {
-                examId: "113-1", // 對應上方 exams 的 id
+                examId: "116-1", // 對應上方 exams 的 id
                 count: 25        // 該題庫抽取題數
             },
             {
-                examId: "113-2",
+                examId: "116-2",
                 count: 25
             }
         ]
