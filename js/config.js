@@ -15,6 +15,8 @@ var examSettings = {
     exams: [
         { id: "116-1", name: "116 年【金融市場常識】", file: "data/Exam-116-1.js" },
         { id: "116-2", name: "116 年【職業道德】", file: "data/Exam-116-2.js" },
+        { id: "116-1-new", name: "116 年【金融市場常識】新增題目", file: "data/Exam-116-1新增題目.js" },
+        { id: "116-2-new", name: "116 年【職業道德】新增題目", file: "data/Exam-116-2新增題目.js" },
         { id: "I-43-1", name: "【內控法規】43期", file: "data/Exam-內控法規-43期.js" },
         { id: "I-44-1", name: "【內控法規】44期", file: "data/Exam-內控法規-44期.js" },
         { id: "I-45-1", name: "【內控法規】45期", file: "data/Exam-內控法規-45期.js" },
